@@ -1,4 +1,3 @@
-mlproject = """
 name: TelcoChurnMLProject
 
 conda_env: conda.yaml
@@ -6,9 +5,3 @@ conda_env: conda.yaml
 entry_points:
   main:
     command: "python modelling.py"
-"""
-
-with open("/content/Workflow-CI/MLProject/MLProject", "w") as f:
-    f.write(mlproject)
-
-print("MLProject berhasil dibuat")
