@@ -42,9 +42,11 @@ mlflow.log_metric("precision_manual", precision)
 mlflow.log_metric("recall_manual", recall)
 mlflow.log_metric("f1_manual", f1)
 
-mlflow.sklearn.log_model(model, "model")
+# Simpan model langsung ke folder lokal agar pasti bisa dipakai build Docker
+mlflow.sklearn.save_model(model, "model")
 
 print("Accuracy:", accuracy)
 print("Precision:", precision)
 print("Recall:", recall)
 print("F1 Score:", f1)
+print("Model saved to folder: model")
