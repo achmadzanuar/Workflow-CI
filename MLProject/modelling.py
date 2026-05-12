@@ -1,4 +1,6 @@
+path = "/content/Workflow-CI/MLProject/modelling.py"
 
+code = r'''
 import pandas as pd
 import mlflow
 import mlflow.sklearn
@@ -9,7 +11,6 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 
 
 mlflow.set_experiment("Telco Customer Churn Classification")
-
 mlflow.sklearn.autolog()
 
 df = pd.read_csv("telco_preprocessing.csv")
@@ -25,23 +26,27 @@ X_train, X_test, y_train, y_test = train_test_split(
     stratify=y
 )
 
-with mlflow.start_run():
+model = RandomForestClassifier(
+    n_estimators=100,
+    random_state=42
+)
 
-    model = RandomForestClassifier(
-        n_estimators=100,
-        random_state=42
-    )
+model.fit(X_train, y_train)
 
-    model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
 
-    y_pred = model.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred)
+f1 = f1_score(y_test, y_pred)
 
-    accuracy = accuracy_score(y_test, y_pred)
-    precision = precision_score(y_test, y_pred)
-    recall = recall_score(y_test, y_pred)
-    f1 = f1_score(y_test, y_pred)
+print("Accuracy:", accuracy)
+print("Precision:", precision)
+print("Recall:", recall)
+print("F1 Score:", f1)
+'''
 
-    print("Accuracy:", accuracy)
-    print("Precision:", precision)
-    print("Recall:", recall)
-    print("F1 Score:", f1)
+with open(path, "w") as f:
+    f.write(code)
+
+print("modelling.py berhasil diperbaiki")
