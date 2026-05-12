@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -21,7 +21,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install mlflow pandas numpy scikit-learn
@@ -31,8 +31,11 @@ jobs:
           cd MLProject
           mlflow run . --env-manager=local
 
-      - name: Upload MLflow Artifacts
+      - name: Upload MLflow artifacts
         uses: actions/upload-artifact@v4
         with:
           name: mlruns-artifacts
-          path: MLProject/mlruns
+          path: |
+            MLProject/mlruns
+            MLProject/mlruns/**
+            MLProject/mlflow.db
