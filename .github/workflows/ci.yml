@@ -28,6 +28,7 @@ jobs:
       - name: Run MLflow Project
         run: |
           cd MLProject
+          export MLFLOW_TRACKING_URI=file:$(pwd)/mlruns
           mlflow run . --env-manager=local
 
       - name: Upload MLflow artifacts
@@ -43,9 +44,9 @@ jobs:
         id: model_path
         run: |
           MODEL_PATH=$(find MLProject/mlruns -type d -path "*/artifacts/model" | head -n 1)
-          echo "model_path=$MODEL_PATH" >> $GITHUB_OUTPUT
           echo "Model path: $MODEL_PATH"
           test -n "$MODEL_PATH"
+          echo "model_path=$MODEL_PATH" >> $GITHUB_OUTPUT
 
       - name: Build Docker image with MLflow
         run: |

@@ -17,8 +17,7 @@ X = df.drop("Churn", axis=1)
 y = df["Churn"]
 
 X_train, X_test, y_train, y_test = train_test_split(
-    X,
-    y,
+    X, y,
     test_size=0.2,
     random_state=42,
     stratify=y
@@ -37,6 +36,13 @@ accuracy = accuracy_score(y_test, y_pred)
 precision = precision_score(y_test, y_pred)
 recall = recall_score(y_test, y_pred)
 f1 = f1_score(y_test, y_pred)
+
+mlflow.log_metric("accuracy_manual", accuracy)
+mlflow.log_metric("precision_manual", precision)
+mlflow.log_metric("recall_manual", recall)
+mlflow.log_metric("f1_manual", f1)
+
+mlflow.sklearn.log_model(model, "model")
 
 print("Accuracy:", accuracy)
 print("Precision:", precision)
