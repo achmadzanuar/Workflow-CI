@@ -1,6 +1,4 @@
-path = "/content/Workflow-CI/MLProject/modelling.py"
 
-code = r'''
 import pandas as pd
 import mlflow
 import mlflow.sklearn
@@ -44,9 +42,3 @@ print("Accuracy:", accuracy)
 print("Precision:", precision)
 print("Recall:", recall)
 print("F1 Score:", f1)
-'''
-
-with open(path, "w") as f:
-    f.write(code)
-
-print("modelling.py berhasil diperbaiki")
